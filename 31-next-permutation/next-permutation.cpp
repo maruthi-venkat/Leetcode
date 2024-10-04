@@ -1,27 +1,25 @@
 class Solution {
 public:
     void nextPermutation(vector<int>& nums) {
-        int point;
         int n = nums.size();
-        int i;
-        int maxi = INT_MIN;
-        for(i=n-1;i>0;i--){
-            if(nums[i] > nums[i-1]){
-                point = i;
-                sort(nums.begin() + point,nums.end());
-                for(int j=i;j<n;j++){
-                    if(nums[j] > nums[i-1]){
-                        swap(nums[j],nums[i-1]);
-                        break;
-                    }
-                }
+        int k;
+        for( k = n-2;k >= 0;k--){
+            if(nums[k] < nums[k+1]){
                 break;
             }
         }
-
-        if(i == 0){
-            return sort(nums.begin(),nums.end());
+        if(k == -1){
+            reverse(nums.begin(),nums.end());
+            return;
         }
-        
+        int l;
+        for(l=n-1;l>k;l--){
+            if(nums[l] > nums[k]){
+                break;
+            }
+        }
+        swap(nums[k],nums[l]);
+        sort(nums.begin()+k+1,nums.end());
+
     }
 };
