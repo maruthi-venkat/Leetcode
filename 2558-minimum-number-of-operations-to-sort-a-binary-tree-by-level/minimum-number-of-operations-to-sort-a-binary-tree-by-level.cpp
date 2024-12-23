@@ -51,6 +51,7 @@ public:
     }
 
     int minimumOperations(TreeNode* root) {
+        ios_base::sync_with_stdio(false);
         levelorder(root);
         return count;
     }
