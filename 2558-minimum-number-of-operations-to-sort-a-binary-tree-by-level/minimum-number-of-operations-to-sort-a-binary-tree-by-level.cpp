@@ -46,12 +46,13 @@ public:
                 q.pop();
             }
             helper(arr,arr);
-           
         }
     }
 
     int minimumOperations(TreeNode* root) {
         ios_base::sync_with_stdio(false);
+        cin.tie(nullptr);
+        
         levelorder(root);
         return count;
     }
