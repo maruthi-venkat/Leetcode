@@ -1,14 +1,13 @@
 class Solution {
 public:
-    int solve(int index,vector<int>& nums,vector<int>& dp){
-        if(index < 0) return 0;
-        if(dp[index] != -1) return dp[index];
+    int solve(int n,vector<int> nums,vector<int> &dp){
+        if(n < 0) return 0;
+        if(dp[n] != -1) return dp[n];
 
-        int pick = solve(index - 2,nums,dp) + nums[index];
-        
-        int nonpick = solve(index - 1,nums,dp) + 0;
+        int pick = nums[n] + solve(n-2,nums,dp);
+        int nonpick = solve(n-1,nums,dp);
 
-        return dp[index] = max(pick,nonpick);
+        return dp[n] = max(pick,nonpick);
     }
     int rob(vector<int>& nums) {
         int n = nums.size();
