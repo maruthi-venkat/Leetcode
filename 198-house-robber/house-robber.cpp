@@ -12,7 +12,7 @@ public:
     // }
     int rob(vector<int>& nums) {
         int n = nums.size();
-        vector<int> dp(n,-1);
+        // vector<int> dp(n,-1);
         // return solve(n-1,nums,dp);
         // tabulation
         // dp[0]=nums[0];
