@@ -15,19 +15,38 @@ public:
         vector<int> dp(n,-1);
         // return solve(n-1,nums,dp);
         // tabulation
-        dp[0]=nums[0];
+        // dp[0]=nums[0];
+        // for(int i=1;i<n;i++){
+        //     int pick = INT_MIN;
+        //     if(i > 1)
+        //         pick = nums[i] + dp[i-2];
+        //     else
+        //         pick = nums[i];
+
+        //     int nonpick = dp[i-1];
+
+        //     dp[i] = max(pick,nonpick);
+        // }
+
+        // return dp[n-1];
+
+        int prev1=nums[0];
+        int prev2=INT_MIN;
+        int curr = nums[0];
         for(int i=1;i<n;i++){
             int pick = INT_MIN;
             if(i > 1)
-                pick = nums[i] + dp[i-2];
+                pick = nums[i] + prev2;
             else
                 pick = nums[i];
 
-            int nonpick = dp[i-1];
+            int nonpick = prev1;
 
-            dp[i] = max(pick,nonpick);
+            curr = max(pick,nonpick);
+            prev2 = prev1;
+            prev1 = curr;
         }
 
-        return dp[n-1];
+        return curr;
     }
 };
