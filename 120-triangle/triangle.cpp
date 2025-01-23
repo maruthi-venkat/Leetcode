@@ -1,56 +1,21 @@
 class Solution {
 public:
-    // Bottom Up approach
+    int solve(int i,int j,vector<vector<int>>& triangle,vector<vector<int>> &dp,int n){
+        if(i >= n) return 0;
+        if(j < 0) return 10000;
+        if(j > i) return 10000;
 
-    // int solve(int i,int j,vector<vector<int>>& triangle,vector<vector<int>>& dp){
-    //     if(i >= triangle.size()) return 0;
+        if(dp[i][j] != -1) return dp[i][j];
 
-    //     if(dp[i][j] != -1) return dp[i][j];
+        int left = INT_MAX,right = INT_MAX;
+        left = triangle[i][j] + solve(i+1,j,triangle,dp,n);
+        right = triangle[i][j] + solve(i+1,j+1,triangle,dp,n);
 
-    //     int down = triangle[i][j] + solve(i+1,j,triangle,dp);
-    //     int dnext = triangle[i][j] + solve(i+1,j+1,triangle,dp);
-        
-    //     int res = min(down,dnext);
-
-    //     return dp[i][j] = res;
-    // }
-
+        return dp[i][j] = min(left,right);
+    }
     int minimumTotal(vector<vector<int>>& triangle) {
         int n = triangle.size();
-        vector<vector<int>> dp;
-        int j=1;
-        for(int i=0;i<n;i++){
-            vector<int> temp;
-            for(int k=0;k<j;k++){
-                temp.push_back(-1);
-            }
-            dp.push_back(temp);
-            j++;
-        }
-
-        // return solve(0,0,triangle,dp);
-
-        // space optimization
-        dp[0][0] = triangle[0][0];
-        for(int i=1;i<n;i++){
-            for(int j=0;j<=i;j++){
-                if(j==0){
-                    dp[i][j] = triangle[i][j] + dp[i-1][j];
-                }
-                else if(j!=i){
-                    dp[i][j] = triangle[i][j] + min(dp[i-1][j],dp[i-1][j-1]);
-                }
-                else{
-                    dp[i][j] = triangle[i][j] + dp[i-1][j-1];
-                }
-            }
-        }
-
-        int mini = INT_MAX;
-        for(int i=0;i<dp[n-1].size();i++){
-            mini = min(mini,dp[n-1][i]);
-        }
-
-        return mini;
+        vector<vector<int>> dp(n, vector<int> (n,-1));
+        return solve(0,0,triangle,dp,n);
     }
 };
